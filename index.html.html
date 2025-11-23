@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Портфолио — Веб‑разработчик</title>
+  <meta name="description" content="Портфолио и сайт услуги веб‑разработчика. Меню, галерея, инструкции, посвящения и контактная форма." />
+  <style>
+    /* Reset & base */
+    :root{--accent:#0066ff;--muted:#6b7280;--bg:#f7fafc}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;color:#0f172a;background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+
+    /* Header / Nav */
+    header{background:linear-gradient(90deg,#fff 0%, #f0f6ff 100%);box-shadow:0 4px 10px rgba(16,24,40,0.06);position:sticky;top:0;z-index:40}
+    .container{max-width:1100px;margin:0 auto;padding:18px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:44px;height:44px;background:linear-gradient(135deg,var(--accent),#00c4ff);border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:700}
+    nav ul{display:flex;gap:12px;list-style:none}
+    nav li a{padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:600}
+    nav li a:hover{background:rgba(0,102,255,0.08);color:var(--accent)}
+    .cta{background:var(--accent);color:#fff;padding:8px 14px;border-radius:10px;font-weight:700}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;padding:48px 0}
+    .hero h1{font-size:34px;line-height:1.05;color:#0f172a}
+    .hero p{color:var(--muted);margin-top:10px}
+    .hero .actions{margin-top:18px;display:flex;gap:10px}
+
+    .card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.06)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .gallery img{width:100%;height:160px;object-fit:cover;border-radius:10px;cursor:pointer}
+
+    /* Sections */
+    section{padding:36px 0}
+    h2{font-size:20px;margin-bottom:10px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .timeline{list-style:none;padding-left:0}
+    .timeline li{padding:12px 0;border-bottom:1px dashed #eef2ff}
+
+    /* Instructions accordion */
+    .accordion button{width:100%;text-align:left;padding:12px;border-radius:8px;border:1px solid #eef2ff;background:#fff;font-weight:700}
+    .accordion .panel{padding:12px;background:#fbfdff;border-radius:8px;border:1px solid #eef2ff;margin-top:8px}
+
+    /* Dedication */
+    .dedication{font-style:italic;color:#334155;background:linear-gradient(180deg,#fff,#fbfdff);padding:22px;border-radius:12px}
+
+    /* Contact */
+    form{display:grid;gap:8px}
+    input,textarea{padding:10px;border-radius:8px;border:1px solid #e6eef9}
+    button[type=submit]{background:var(--accent);color:#fff;padding:10px;border-radius:10px;border:none;font-weight:700}
+
+    /* Footer */
+    footer{padding:24px 0;color:var(--muted);font-size:14px}
+
+    /* Responsive */
+    @media(max-width:980px){.hero{grid-template-columns:1fr;}.gallery{grid-template-columns:repeat(2,1fr)}nav ul{display:none}.menu-toggle{display:block}}
+    @media(max-width:600px){.gallery img{height:120px}.gallery{grid-template-columns:1fr}}
+
+    .menu-toggle{display:none;background:transparent;border:0;font-weight:700}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(2,6,23,0.7);display:none;align-items:center;justify-content:center;padding:28px}
+    .lightbox img{max-width:95%;max-height:85%;border-radius:10px;box-shadow:0 20px 50px rgba(2,6,23,0.6)}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">WD</div>
+        <div>
+          <div style="font-weight:800">Чупахина Зарина</div>
+          <div style="font-size:12px;color:var(--muted)">Веб‑разработчик • Frontend & UI/UX</div>
+        </div>
+      </div>
+
+      <nav aria-label="Главное меню">
+        <button class="menu-toggle" aria-expanded="false" onclick="toggleMenu(this)">Меню ▾</button>
+        <ul id="mainNav">
+          <li><a href="#about">Обо мне</a></li>
+          <li><a href="#projects">Проекты</a></li>
+          <li><a href="#how">Как работать</a></li>
+          <li><a href="#dedication">Посвящение</a></li>
+          <li><a href="#contact" class="cta">Заказать сайт</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Я создаю быстрые, доступные и красивые сайты — от простой посадочной страницы до сложных веб‑приложений.</h1>
+        <p>Привет! Меня зовут Зарина. Я помогу воплотить вашу идею в работающий сайт: фронтенд, адаптивная верстка, оптимизация и поддержка.</p>
+        <div class="actions" role="group" aria-label="Действия">
+          <a href="#contact" class="cta">Связаться</a>
+          <a href="#projects" style="padding:8px 14px;border-radius:10px;background:#fff;box-shadow:0 4px 12px rgba(2,6,23,0.04);">Мои проекты</a>
+        </div>
+
+        <div style="margin-top:22px;display:flex;gap:12px;align-items:center">
+          <div class="card" style="display:flex;gap:12px;align-items:center">
+            <img src="https://picsum.photos/80/80?random=1" alt="Фото разработчика" style="width:64px;height:64px;border-radius:10px;object-fit:cover">
+            <div>
+              <div style="font-weight:700">Опыт 6 лет</div>
+              <div style="font-size:13px;color:var(--muted)">HTML • CSS • JS • React • Accessibility</div>
+            </div>
+          </div>
+
+          <div class="card" style="padding:12px">
+            <div style="font-size:12px;color:var(--muted)">Быстрый старт</div>
+            <div style="font-weight:800">От идеи до прототипа — 5 дней</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 style="margin-bottom:8px">Контактная карточка</h3>
+        <p style="color:var(--muted)">Готова обсудить проект. Оставьте сообщение — я отвечу в течение 24 часов.</p>
+        <dl style="margin-top:12px;color:var(--muted)">
+          <dt>Почта</dt><dd>alex@site.example</dd>
+          <dt>Телефон</dt><dd>+996 705-32-42-11</dd>
+        </dl>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <a href="#contact" class="cta">Заказать консультацию</a>
+          <a href="#projects" style="padding:8px 10px;border-radius:8px;border:1px solid #eef2ff">Посмотреть работы</a>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <div class="card">
+        <h2>Обо мне</h2>
+        <div class="grid-2">
+          <div>
+            <p style="color:var(--muted)">Я специализируюсь на создании пользовательских интерфейсов с упором на доступность, производительность и красоту. Работала с малыми стартапами и средними бизнесами.</p>
+            <ul style="margin-top:12px;color:var(--muted)">
+              <li>Адаптивная верстка</li>
+              <li>Оптимизация под SEO и Core Web Vitals</li>
+              <li>Интеграции с API и CMS</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Навыки</h3>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+              <div>HTML — <strong>95%</strong></div>
+              <div>CSS — <strong>90%</strong></div>
+              <div>JavaScript — <strong>88%</strong></div>
+              <div>React — <strong>82%</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Проекты</h2>
+      <p style="color:var(--muted)">Ниже небольшой набор работ — кликните, чтобы увеличить.</p>
+      <div class="gallery" style="margin-top:12px">
+        <img src="https://picsum.photos/600/400?random=11" alt="Проект 1" data-src="https://picsum.photos/1200/800?random=11">
+        <img src="https://picsum.photos/600/400?random=12" alt="Проект 2" data-src="https://picsum.photos/1200/800?random=12">
+        <img src="https://picsum.photos/600/400?random=13" alt="Проект 3" data-src="https://picsum.photos/1200/800?random=13">
+        <img src="https://picsum.photos/600/400?random=14" alt="Проект 4" data-src="https://picsum.photos/1200/800?random=14">
+        <img src="https://picsum.photos/600/400?random=15" alt="Проект 5" data-src="https://picsum.photos/1200/800?random=15">
+        <img src="https://picsum.photos/600/400?random=16" alt="Проект 6" data-src="https://picsum.photos/1200/800?random=16">
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>Как мы работаем — пошагово</h2>
+      <div class="grid-2" style="margin-top:12px">
+        <div class="card">
+          <ol class="timeline">
+            <li><strong>1. Бриф</strong> — встреча или анкета, чтобы понять требования.</li>
+            <li><strong>2. Прототип</strong> — макет и согласование макета.</li>
+            <li><strong>3. Разработка</strong> — верстка, логика, интеграции.</li>
+            <li><strong>4. Тестирование</strong> — кроссбраузерность и доступность.</li>
+            <li><strong>5. Запуск</strong> — публикация и передача документации.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Инструкции для заказчика</h3>
+          <div class="accordion">
+            <div>
+              <button aria-expanded="false" onclick="toggleAccordion(this)">Что нужно подготовить?</button>
+              <div class="panel" style="display:none">Логотип, тексты, референсы, доступы к домену и хостингу (если есть).</div>
+            </div>
+            <div style="margin-top:10px">
+              <button aria-expanded="false" onclick="toggleAccordion(this)">Сколько стоит?</button>
+              <div class="panel" style="display:none">Оценка зависит от объема. Минимальная сумма — от 150$ за простую посадочную страницу.</div>
+            </div>
+            <div style="margin-top:10px">
+              <button aria-expanded="false" onclick="toggleAccordion(this)">Поддержка после сдачи?</button>
+              <div class="panel" style="display:none">Да — пакет поддержки обсуждается отдельно (обновления, бэкапы, правки).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dedication">
+      <h2>Посвящение</h2>
+      <div class="dedication card" style="margin-top:12px">
+        Это небольшое посвящение людям, которые вдохновляют работать лучше: моим наставникам, клиентам и команде. Спасибо за доверие и возможность создавать полезный и красивый интерфейс.
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <h2>Отзывы</h2>
+      <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+        <div class="card" style="flex:1;min-width:220px">
+          <strong>Мария Иванова</strong>
+          <p style="color:var(--muted)">"Быстро, качественно и по делу. Сайт помог нам увеличить продажи."</p>
+        </div>
+        <div class="card" style="flex:1;min-width:220px">
+          <strong>ООО «Стартап»</strong>
+          <p style="color:var(--muted)">"Зарина сделала прототип и дала ценные советы по UX."</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Связаться</h2>
+      <div class="card" style="margin-top:12px">
+        <form id="contactForm" onsubmit="return submitForm(event)">
+          <label>Имя <input type="text" id="name" required placeholder="Ваше имя"></label>
+          <label>Почта <input id="email" type="email" required placeholder="email@example.com"></label>
+          <label>Сообщение <textarea id="message" rows="4" required placeholder="Кратко опишите задачу"></textarea></label>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button type="submit">Отправить</button>
+            <button type="button" onclick="resetForm()" style="background:#fff;border:1px solid #e6eef9">Очистить</button>
+          </div>
+          <div id="formStatus" style="margin-top:8px;color:var(--muted)"></div>
+        </form>
+      </div>
+    </section>
+
+    <section aria-hidden="true" style="height:20px"></section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center">
+      <div>© 2025 Алексей Иванов — Веб‑разработчик</div>
+      <div style="color:var(--muted)">Создано с ♥ — адаптируйте под любую профессию</div>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" onclick="closeLightbox(event)">
+    <img src="" alt="Увеличенное изображение" id="lightboxImg">
+  </div>
+
+  <script>
+    // Menu toggle for small screens
+    function toggleMenu(btn){
+      const nav = document.getElementById('mainNav');
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      if(nav.style.display === 'flex'){nav.style.display='none';}
+      else nav.style.display='flex';
+    }
+
+    // Accordion
+    function toggleAccordion(btn){
+      const panel = btn.nextElementSibling;
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', !expanded);
+      if(panel.style.display === 'block') panel.style.display = 'none'; else panel.style.display = 'block';
+    }
+
+    // Gallery lightbox
+    const galleryImgs = document.querySelectorAll('.gallery img');
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    galleryImgs.forEach(img=>{
+      img.addEventListener('click', ()=>{
+        const big = img.getAttribute('data-src') || img.src;
+        lbImg.src = big;
+        lightbox.style.display = 'flex';
+        lightbox.setAttribute('aria-hidden','false');
+      })
+    });
+    function closeLightbox(e){
+      if(e.target === lightbox || e.target === lbImg){
+        lightbox.style.display='none';
+        lightbox.setAttribute('aria-hidden','true');
+        lbImg.src = '';
+      }
+    }
+
+    // Simple form handler (no backend) — demonstrates validation and UX
+    function submitForm(event){
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('formStatus');
+      if(!name||!email||!message){status.textContent='Пожалуйста, заполните все поля.';return false}
+      status.textContent = 'Сообщение готово к отправке (демо). Форму можно подключить к почте или API.';
+      // Demo: save to localStorage
+      const out = {name,email,message,date:new Date().toISOString()};
+      const saved = JSON.parse(localStorage.getItem('contacts')||'[]');
+      saved.push(out);localStorage.setItem('contacts',JSON.stringify(saved));
+      return false;
+    }
+    function resetForm(){document.getElementById('contactForm').reset();document.getElementById('formStatus').textContent='';}
+
+    // Accessibility: keyboard close lightbox
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape'){ lightbox.style.display='none'; lightbox.setAttribute('aria-hidden','true'); lbImg.src=''; } });
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+      })
+    })
+  </script>
+</body>
+</html>
